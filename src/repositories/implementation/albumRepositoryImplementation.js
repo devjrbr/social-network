@@ -29,13 +29,13 @@ class AlbumRepositoryImplementation extends IAlbumRepository{
             .where({ id: albumId })
             .select('id', 'description', 'target_id', 'is_active');
     };
-    async update(id, description, target_id) { 
+    async update(albumId, description, targetId) {
         try {
             await db.transaction(async (trx) => {
                 await db('album')
-                    .where({ id })
+                    .where({ id: albumId })
                     .update({
-                        description, target_id
+                        description, targetId
                     })
                     .transacting(trx);
             });
