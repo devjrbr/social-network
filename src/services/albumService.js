@@ -13,7 +13,7 @@ class AlbumService {
         if (!album) throw new ApiError(httpStatus.NOT_FOUND, 'Album not found!');
         return album;
     };
-    async getAllAlbums(albumId) {
+    getAllAlbums(albumId) {
         return this.albumRepository.getAll(albumId);
     };
     async updateAlbum(id, description, target_id) {
