@@ -14,10 +14,10 @@ class AlbumController {
         });
     }
     async getAlbumById(req, res) {
-        const { id } = req.params;
+        const { albumId } = req.params;
         const { authorization: token } = req.headers;
         await this.tokenService.verifyToken(token); 
-        const album = await this.albumService.getAlbumById(id);
+        const album = await this.albumService.getAlbumById(albumId);
         return res.status(httpStatus.OK).json(album);
     }
     async getAlbums(req, res) {

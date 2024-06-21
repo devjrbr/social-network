@@ -8,8 +8,8 @@ class AlbumService {
     createAlbum(description, targetId) {
         return this.albumRepository.create(description, targetId);
     };
-    async getAlbumById(id) {
-        const album = await this.albumRepository.getById(id);
+    async getAlbumById(albumId) {
+        const album = await this.albumRepository.getById(albumId);
         if (!album) throw new ApiError(httpStatus.NOT_FOUND, 'Album not found!');
         return album;
     };
