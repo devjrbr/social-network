@@ -23,25 +23,25 @@ class AlbumItemRepositoryImplementation extends IAlbumItemRepository {
         }
     }
 
-    getById(albumId) {
+    getById(albumItemId) {
         return db('Album_Item')
-            .where({ id: albumId })
+            .where({ id: albumItemId })
             .select(['id', 'post_id', 'album_id', 'is_active'])
             .first();
     }
 
-    async getAll(albumId) {
+    getAll(albumItemId) {
         return db('Album_Item')
-            .where({ id: albumId })
+            .where({ id: albumItemId })
             .select(['id', 'post_id', 'album_id', 'is_active']);
     }
 
-    async delete(id) {
+    async delete(albumItemId) {
         try {
             await db.transaction(async (trx) => {
                 await db('Album_Item')
                     .update({ is_active: false })
-                    .where({ id: id })
+                    .where({ id: albumItemId })
                     .transacting(trx);
             });
         } catch (error) {

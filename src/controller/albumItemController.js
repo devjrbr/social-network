@@ -8,8 +8,8 @@ class AlbumItemController {
     async createAlbumItem(req, res) {
         const { authorization: token } = req.headers;
         await this.tokenService.verifyToken(token); 
-        const { post_id, album_id } = req.body;
-        const albumItem = await this.albumItemService.createAlbumItem(post_id, album_id);
+        const { post_id: postId, album_id: albumId } = req.body;
+        const albumItem = await this.albumItemService.createAlbumItem(postId, albumId);
         return res.status(httpStatus.CREATED).json({
             message: 'Album item created successfully!',
             data: albumItem
