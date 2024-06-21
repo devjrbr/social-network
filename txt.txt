@@ -1,0 +1,12 @@
+reaction - ok
+comment - ok
+post - ok
+targetPublic - ok
+reactionType -ok
+fileType - ok
+friendshipRequestType - ok
+user - ok
+albumItem - ok
+friendship - ok
+friendshipRequest - ok
+album -
