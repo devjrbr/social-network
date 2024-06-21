@@ -5,8 +5,8 @@ class AlbumService {
     constructor(albumRepository) {
         this.albumRepository = albumRepository;
     }
-    async createAlbum(description, target_id) {
-        return this.albumRepository.create(description, target_id);
+    createAlbum(description, targetId) {
+        return this.albumRepository.create(description, targetId);
     };
     async getAlbumById(id) {
         const album = await this.albumRepository.getById(id);

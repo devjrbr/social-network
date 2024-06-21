@@ -5,8 +5,8 @@ class AlbumRepository {
         assertIsInstanceOfContract(repository, contract);
         this.repository = repository;
     }
-    async create(description, target_id) {
-        return this.repository.create(description, target_id);
+    async create(description, targetId) {
+        return this.repository.create(description, targetId);
     };
     async getById(id){
         return this.repository.getById(id);

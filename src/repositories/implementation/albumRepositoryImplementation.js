@@ -2,15 +2,15 @@ const db = require('../../database/config/db');
 const ApiError = require("../../utils/ApiError");
 const httpStatus = require("../../utils/statusCodes");
 const { IAlbumRepository } = require("../interfaces/albumRepositoryAbstract");
-const {where} = require("sequelize");
+
 
 class AlbumRepositoryImplementation extends IAlbumRepository{
-    async create(description, target_id) {
+    async create(description, targetId) {
         try {
             const[album] = await db('album')
                 .insert({
-                    description,
-                    target_id
+                    description: description,
+                    target_id: targetId
                 })
                 .returning('*');
             return album           
