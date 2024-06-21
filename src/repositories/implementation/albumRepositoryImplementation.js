@@ -18,9 +18,9 @@ class AlbumRepositoryImplementation extends IAlbumRepository{
             throw new ApiError(httpStatus.INTERNAL_SERVER_ERROR,'Error while creating a new album');
         }
     };
-    getById(id){
+    getById(albumId){
         return db('album')
-            .where({ id })
+            .where({ id: albumId })
             .select('id', 'description', 'target_id', 'is_active')
             .first();        
     };
@@ -43,11 +43,11 @@ class AlbumRepositoryImplementation extends IAlbumRepository{
             throw new ApiError(httpStatus.INTERNAL_SERVER_ERROR,'Error while updating album');
         }
     };
-    async delete (id) {        
+    async delete (albumId) {
         try {
             await db.transaction(async (trx) => {
                 await db('album')
-                    .where({ id })
+                    .where({ id: albumId })
                     .update({ is_active: false })
                     .transacting(trx);
             });

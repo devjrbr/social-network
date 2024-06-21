@@ -21,10 +21,10 @@ class AlbumService {
         if (!album) throw new ApiError(httpStatus.NOT_FOUND, 'Album not found!');
         await this.albumRepository.update(id, description, target_id);
     };
-    async deleteAlbum(id) {
-        const album = await this.albumRepository.getById(id);
+    async deleteAlbum(albumId) {
+        const album = await this.albumRepository.getById(albumId);
         if (!album) throw new ApiError(httpStatus.NOT_FOUND, 'Album not found!');
-        await this.albumRepository.delete(id);
+        await this.albumRepository.delete(albumId);
     };
 }
 
