@@ -4,12 +4,12 @@ const httpStatus = require("../../utils/statusCodes");
 const { ITargetPublicRepository } = require("../interfaces/targetPublicRepositoryAbstract");
 
 class TargetPublicRepositoryImplementation extends ITargetPublicRepository {
-    async create(type) {
+    async create(newTargetPublicType) {
         try {
             const [target] = await db.transaction(async (trx) => {
                 return db('target_public')
                     .transacting(trx)
-                    .insert({ type });
+                    .insert({ type: newTargetPublicType });
             });
             return target;
         } catch (error) {
@@ -22,18 +22,18 @@ class TargetPublicRepositoryImplementation extends ITargetPublicRepository {
             .select('id', 'type', 'is_active');
     };
 
-    async getById(id){
+    async getById(targetPublicTypeId){
         return db('target_public')
-            .where({ id })
+            .where({ id: targetPublicTypeId })
             .select('id', 'type', 'is_active')
             .first();
     };
 
-    async delete(id) {
+    async delete(targetPublicTypeId) {
         try {
             await db.transaction(async (trx) => {
                 await db('target_public')
-                    .where({ id })
+                    .where({ id: targetPublicTypeId })
                     .update({ is_active: false })
                     .transacting(trx);
             });

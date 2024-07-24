@@ -13,7 +13,7 @@ class TargetPublicController {
             data: targetPublic
         });
     }
-    async getTargetPublics(req, res) {
+    async getTargetPublic(req, res) {
         const targetPublic = await this.targetPublicService.getAllTargetPublic();
         return res.status(httpStatus.OK).json(targetPublic);
     }

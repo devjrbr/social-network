@@ -6,13 +6,13 @@ const createAlbumSchema = yup.object({
 });
 
 const updateAlbumSchema = yup.object({
-    id: yup.number().integer().required(),
+    album_id: yup.number().integer().required(),
     description: yup.string().required(),
     target_id: yup.number().integer().required()
 });
 
 const getByIdSchema = yup.object({
-    id: yup.number().integer().required()
+    album_id: yup.number().integer().required()
 });
 
 const authorizationSchema = yup.object().shape({

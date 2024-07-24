@@ -7,7 +7,7 @@ const { IFriendshipRequestTypeRepository } = require("../repositories/interfaces
 
 function configureFriendshipRequestTypeContainer() {
     const friendshipRequestTypeRepositoryImplementation = new FriendshipRequestTypeRepositoryImplementation();
-    const friendshipRequestTypeRepository = new FriendshipRequestTypeRepository(friendshipRequestTypeRepositoryImplementation, contract=IFriendshipRequestTypeRepository);
+    const friendshipRequestTypeRepository = new FriendshipRequestTypeRepository(friendshipRequestTypeRepositoryImplementation, IFriendshipRequestTypeRepository);
     const friendshipRequestTypeService = new FriendshipRequestTypeService(friendshipRequestTypeRepository);
     const friendshipRequestTypeController = new FriendshipRequestTypeController(friendshipRequestTypeService);
     const friendshipRequestTypeRoutes = createFriendshipRequestTypeRoutes(friendshipRequestTypeController);

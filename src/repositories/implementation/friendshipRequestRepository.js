@@ -5,32 +5,30 @@ const friendshipRequestTypeStatus = require("../../utils/friendshipRequestTypeSt
 const httpStatus = require('../../utils/statusCodes');
 
 class FriendshipRequestRepositoryImplementation extends IFriendshipRequestRepository {
-    async create(senderId, receiveId) {
+    create(senderId, receiverId) {
         try {
-            await db("friendship_request").insert({
+            db("friendship_request").insert({
                 sender_id: senderId,
-                receiver_id: receiveId,
+                receiver_id: receiverId,
                 request_type_id: friendshipRequestTypeStatus.AWAITING_APPROVAL
             });
         } catch (error) {
             throw new ApiError(httpStatus.INTERNAL_SERVER_ERROR, 'Error while creating friendship request');
         }
-    }
-
-    async getAll(userId) {
+    };
+    getAll(userId) {
         try {
-            return await db("friendship_request")
+            return db("friendship_request")
                 .where("sender_id", userId)
                 .orWhere("receiver_id", userId)
                 .select("*");
         } catch (error) {
             throw new ApiError(httpStatus.INTERNAL_SERVER_ERROR, 'Error while getting all friendship requests');
         }
-    }
-
-    async accept(requestId) {
+    };
+    accept(requestId) {
         try {
-            await db("friendship_request")
+            db("friendship_request")
                 .where({ id: requestId })
                 .update({
                     request_type_id: friendshipRequestTypeStatus.ACCEPTED,
@@ -39,17 +37,16 @@ class FriendshipRequestRepositoryImplementation extends IFriendshipRequestReposi
         } catch (error) {
             throw new ApiError(httpStatus.INTERNAL_SERVER_ERROR, 'Error while accepting friendship request');
         }
-    }
-
-    async delete(requestId) {
+    };
+    delete(requestId) {
         try {
-            await db("friendship_request")
+            db("friendship_request")
                 .where({ id: requestId })
                 .del();
         } catch (error) {
             throw new ApiError(httpStatus.INTERNAL_SERVER_ERROR, 'Error while deleting friendship request');
         }
-    }
+    };
 }
 
 module.exports = FriendshipRequestRepositoryImplementation;

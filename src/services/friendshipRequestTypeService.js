@@ -4,22 +4,23 @@ const httpStatus = require("../utils/statusCodes");
 class FriendshipRequestTypeService {
     constructor(friendshipRequestTypeRepository) {
         this.friendshipRequestTypeRepository = friendshipRequestTypeRepository;
-    }
-    async create(type) {
-        return this.friendshipRequestTypeRepository.create(type);
-    }
-    async getAll(){
+    };
+    create(newFriendshipRequestType) {
+        return this.friendshipRequestTypeRepository.create(newFriendshipRequestType);
+    };
+    getAll(){
         return this.friendshipRequestTypeRepository.getAll();
-    }
-    async getById(id){
-        const friendshipRequestType = await this.friendshipRequestTypeRepository.getById(id);
+    };
+    async getById(friendshipRequestTypeId){
+        const friendshipRequestType = await this.friendshipRequestTypeRepository.getById(friendshipRequestTypeId);
         if (!friendshipRequestType) throw new ApiError(httpStatus.NOT_FOUND, 'Friendship request type not found.');
         return friendshipRequestType;
-    }
-    async delete(id){
-        await this.getById(id);
-        return this.friendshipRequestTypeRepository.delete(id);
-    }
+    };
+    async delete(friendshipRequestTypeId){
+        const friendshipRequestType = await this.friendshipRequestTypeRepository.getById(friendshipRequestTypeId);
+        if(!friendshipRequestType) throw new ApiError(httpStatus.NOT_FOUND, 'Friendship request type not found.')
+        return this.friendshipRequestTypeRepository.delete(friendshipRequestTypeId);
+    };
 }
 
 module.exports = FriendshipRequestTypeService;

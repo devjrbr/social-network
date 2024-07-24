@@ -12,8 +12,8 @@ const { ITokenRepository } = require("../repositories/interfaces/tokenRepository
 function configureFriendshipContainer() {
     const friendshipRepositoryImplementation = new FriendshipRepositoryImplementation();
     const tokenRepositoryImplementation = new TokenRepositoryImplementation();
-    const friendshipRepository = new FriendshipRepository(friendshipRepositoryImplementation, contract=IFriendshipRepository);
-    const tokenRepository = new TokenRepository(tokenRepositoryImplementation, contract=ITokenRepository);
+    const friendshipRepository = new FriendshipRepository(friendshipRepositoryImplementation, IFriendshipRepository);
+    const tokenRepository = new TokenRepository(tokenRepositoryImplementation, ITokenRepository);
     const tokenService = new TokenService(tokenRepository);
     const friendshipService = new FriendshipService(friendshipRepository);
     const friendshipController = new FriendshipController(friendshipService, tokenService);

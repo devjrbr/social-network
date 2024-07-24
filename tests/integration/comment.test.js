@@ -9,12 +9,12 @@ describe('Testing comment feature', () => {
   let tempPost;
   let loginResponse;
   let bodyComment;
-  let bodyCreateComment;
+  let createdComment;
   let token;
 
   beforeAll(async () => {
     await db('user').insert({
-      id: 100,
+      id: 554678,
       full_name: 'Luiz Cruz',
       email: 'luizcruzdev@gmail.com',
       password: '$2b$10$OMDQ.q5dkZAZkQH1g5W6IOP4ZLCwBV4xnTCHDng2pNhlWOpq/n5xO',
@@ -22,9 +22,9 @@ describe('Testing comment feature', () => {
       updated_at: new Date(),
       is_active: true
     });
-    tempUser = await db('user').where({ id: 100 }).first();
+    tempUser = await db('user').where({ id: 554678 }).first();
     await db('post').insert({
-      id: 1000,
+      id: 45326,
       description: "Test Post",
       user_id: tempUser.id,
       target_id: targetPublicStatus.PUBLIC,
@@ -33,7 +33,7 @@ describe('Testing comment feature', () => {
       updated_at: new Date(),
       is_active: true
     });
-    tempPost = await db('post').where({ id: 1000 }).first();
+    tempPost = await db('post').where({ id: 45326 }).first();
     loginResponse = await request(app).post('/login').send({ email: tempUser.email, password: "1234" });
     token = loginResponse.body.token;
     [bodyComment] = await db('comment').insert(
@@ -43,34 +43,34 @@ describe('Testing comment feature', () => {
           user_id: tempUser.id,
           post_id: tempPost.id
         });
-    bodyCreateComment = await db('comment').where({ id: 200 }).first();
+    createdComment = await db('comment').where({ id: 200 }).first();
   });
   afterAll(async () => {
-    await db('token').where({ user_id: 100 }).del();
+    await db('token').where({ user_id: 554678 }).del();
     await db('comment').where({ id: 200 }).del();
-    await db('post').where({ id: 1000 }).del();
-    await db('user').where({ id: 100 }).del();
+    await db('post').where({ id: 45326 }).del();
+    await db('user').where({ id: 554678 }).del();
   });
   it('Should create a comment when authorized with valid token', async () => {
     const { token } = loginResponse.body;
-    const response = await request(app).post('/comment').send(bodyCreateComment).set('Authorization', token);
+    const response = await request(app).post('/comments').send({post_id: tempPost.id, description: "Woow"}).set('Authorization', token);
     expect(response.status).toBe(httpStatus.CREATED);
     expect(response.body.data).toBeDefined();
   });
   it('Should return a bad request if trying to create a comment with missing fields', async () => {
     const { token } = loginResponse.body;
-    const response = await request(app).post('/comment').send({}).set('Authorization', token);
+    const response = await request(app).post('/comments').send({}).set('Authorization', token);
     expect(response.status).toBe(httpStatus.BAD_REQUEST);
   });
   it('Should get a comment by id when authorized with valid token', async () => {
     const { token } = loginResponse.body;
-    const response = await request(app).get(`/comment/${tempCommentId}`).set('Authorization', token);
+    const response = await request(app).get(`/comments/${createdComment.id}`).set('Authorization', token);
     expect(response.status).toBe(httpStatus.OK);
     expect(response.body).toBeDefined();
   });
   it('Should get all comments when authorized with valid token', async () => {
     const { token } = loginResponse.body;
-    const response = await request(app).get('/comment').set('Authorization', token);
+    const response = await request(app).get('/comments').set('Authorization', token);
     expect(response.status).toBe(httpStatus.OK);
     expect(response.body).toBeDefined();
   });
@@ -78,13 +78,13 @@ describe('Testing comment feature', () => {
     const updatedCommentData = {
       description: 'This is an updated test comment'
     };
-    const response = await request(app).put(`/comment/${tempCommentId}`).send(updatedCommentData).set('Authorization', token);
+    const response = await request(app).put(`/comments/${createdComment.id}`).send(updatedCommentData).set('Authorization', token);
     expect(response.status).toBe(httpStatus.OK);
     expect(response.body.details).toBe('Comment updated successfully');
   });
   it('Should delete a comment when authorized with valid token', async () => {
     const { token } = loginResponse.body;
-    const response = await request(app).delete(`/comment/${tempCommentId}`).set('Authorization', token);
+    const response = await request(app).delete(`/comments/${createdComment.id}`).set('Authorization', token);
     expect(response.status).toBe(httpStatus.OK);
     expect(response.body.details).toBe('Comment deleted successfully');
   });

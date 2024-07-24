@@ -8,8 +8,8 @@ class AlbumItemController {
     async createAlbumItem(req, res) {
         const { authorization: token } = req.headers;
         await this.tokenService.verifyToken(token); 
-        const { post_id, album_id } = req.body;
-        const albumItem = await this.albumItemService.createAlbumItem(post_id, album_id);
+        const { post_id: postId, album_id: albumItemId } = req.body;
+        const albumItem = await this.albumItemService.createAlbumItem(postId, albumItemId);
         return res.status(httpStatus.CREATED).json({
             message: 'Album item created successfully!',
             data: albumItem
@@ -17,18 +17,19 @@ class AlbumItemController {
     }
     async getAlbumItems(req, res) {
         const { authorization: token } = req.headers;
-        const albumID = await this.tokenService.getIdFromToken(token);
-        const albumItem = await this.albumItemService.getAllAlbumItem(albumID);
+        const albumItemId = await this.tokenService.getIdFromToken(token);
+        const albumItem = await this.albumItemService.getAllAlbumItem(albumItemId);
         return res.status(httpStatus.OK).json(albumItem);
     }
     async deleteAlbumItem(req, res) {
-        const { id } = req.params;
+        const { id: albumItemId } = req.params;
         const { authorization: token } = req.headers;
         await this.tokenService.verifyToken(token); 
-        await this.albumItemService.deleteAlbumItem(id);
+        await this.albumItemService.deleteAlbumItem(albumItemId);
         return res.status(httpStatus.OK).json({
             details: "Album item deleted successfully"
         });
     }
 }
+
 module.exports = AlbumItemController;

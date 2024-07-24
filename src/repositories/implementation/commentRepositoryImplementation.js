@@ -21,49 +21,44 @@ class CommentRepositoryImplementation extends ICommentRepository{
             throw new ApiError(httpStatus.INTERNAL_SERVER_ERROR, 'Error while creating a comment');
         }
     }
-
     getById(id) {
         try {
             return db('comment').where({ id }).first();
         } catch (error) {
             throw new ApiError(httpStatus.INTERNAL_SERVER_ERROR, 'Error while fetching comment by id');
         }
-    }
-
+    };
     getAll(commentId) {
         try {
             return db('comment').where({ user_id: commentId });
         } catch (error) {
             throw new ApiError(httpStatus.INTERNAL_SERVER_ERROR, error);
         }
-    }
-
-    async update(id, description, user_id, post_id) {
+    };
+    async update(commentId, description) {
         try {
-            const [comment] = await db('comment')
-                .where({ id })
-                .update({
-                    description,
-                    user_id,
-                    post_id,
-                    updated_at: new Date()
-                })
-                .returning('*');
-            return comment;
+            await db.transaction(async (trx) => {
+                await db('comment')
+                    .where({id: commentId})
+                    .update({
+                        description: description,
+                        updated_at: new Date()
+                    })
+                    .transacting(trx);
+            });
         } catch (error) {
             throw new ApiError(httpStatus.INTERNAL_SERVER_ERROR, 'Error while updating comment');
         }
-    }
-
-    async delete(id) {
+    };
+    async delete(commentId) {
         try {
             await db('comment')
-                .where({ id })
+                .where({ id: commentId })
                 .update({ is_active: false });
         } catch (error) {
             throw new ApiError(httpStatus.INTERNAL_SERVER_ERROR, 'Error while deleting comment');
         }
-    }
+    };
 }
 
 module.exports = CommentRepositoryImplementation;

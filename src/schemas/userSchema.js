@@ -16,6 +16,7 @@ const updateUserSchema = yup.object().shape({
     email: yup.string().email(),
     password: yup.string(),
 });
+
 const getByIdSchema = yup.object().shape({
     id: yup.number().integer().required(),
 });

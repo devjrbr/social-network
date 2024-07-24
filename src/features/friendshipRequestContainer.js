@@ -18,9 +18,9 @@ function configureFriendshipRequestContainer() {
     const tokenRepositoryImplementation = new TokenRepositoryImplementation();
     const friendshipRequestRepositoryImplementation = new FriendshipRequestRepositoryImplementation();
     const friendshipRepositoryImplementation = new FriendshipRepositoryImplementation();
-    const friendshipRequestRepository = new FriendshipRequestRepository(friendshipRequestRepositoryImplementation, contract=IFriendshipRequestRepository);
-    const tokenRepository = new TokenRepository(tokenRepositoryImplementation, contract=ITokenRepository);
-    const friendshipRepository = new FriendshipRepository(friendshipRepositoryImplementation, contract=IFriendshipRepository);
+    const friendshipRequestRepository = new FriendshipRequestRepository(friendshipRequestRepositoryImplementation, IFriendshipRequestRepository);
+    const tokenRepository = new TokenRepository(tokenRepositoryImplementation, ITokenRepository);
+    const friendshipRepository = new FriendshipRepository(friendshipRepositoryImplementation, IFriendshipRepository);
     const hashService = new HashService();
     const tokenService = new TokenService(tokenRepository, hashService);
     const friendshipService = new FriendshipService(friendshipRepository);

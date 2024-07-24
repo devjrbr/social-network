@@ -5,28 +5,28 @@ class UserRepository {
         assertIsInstanceOfContract(repository, contract);
         this.repository = repository;
     }
-    async create(full_name, email, hashedPassword) {
-        return this.repository.create(full_name, email, hashedPassword);
+    create(fullName, email, hashedPassword) {
+        return this.repository.create(fullName, email, hashedPassword);
     };
-    async getByEmail(email) {
+    getByEmail(email) {
         return this.repository.getByEmail(email);
     };
-    async getById(id){
-       return this.repository.getById(id);
+    getById(userId){
+       return this.repository.getById(userId);
     };
-    async getAll(){
+    getAll(){
         return this.repository.getAll();
     };
-    async update(id, full_name, email, hashedPassword) {
-        this.repository.update(id, full_name, email, hashedPassword);
+    update(userId, fullName, email, hashedPassword) {
+        this.repository.update(userId, fullName, email, hashedPassword);
     };
-    async delete (userId) {
+    delete (userId) {
         this.repository.delete(userId);
     };
-    async getFeedNews(userId) {
+    getFeedNews(userId) {
         return this.repository.getFeedNews(userId);
     };
-    async getPostStatistics() {
+    getPostStatistics() {
         return this.repository.getPostStatistics();
     };
 }

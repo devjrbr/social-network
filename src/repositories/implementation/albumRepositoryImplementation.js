@@ -2,15 +2,15 @@ const db = require('../../database/config/db');
 const ApiError = require("../../utils/ApiError");
 const httpStatus = require("../../utils/statusCodes");
 const { IAlbumRepository } = require("../interfaces/albumRepositoryAbstract");
-const {where} = require("sequelize");
+
 
 class AlbumRepositoryImplementation extends IAlbumRepository{
-    async create(description, target_id) {
+    async create(description, targetId) {
         try {
             const[album] = await db('album')
                 .insert({
-                    description,
-                    target_id
+                    description: description,
+                    target_id: targetId
                 })
                 .returning('*');
             return album           
@@ -18,24 +18,25 @@ class AlbumRepositoryImplementation extends IAlbumRepository{
             throw new ApiError(httpStatus.INTERNAL_SERVER_ERROR,'Error while creating a new album');
         }
     };
-    async getById(id){
+    getById(albumId){
         return db('album')
-            .where({ id })
+            .where({ id: albumId })
             .select('id', 'description', 'target_id', 'is_active')
             .first();        
     };
-    async getAll(albumId){
+    getAll(albumId){
         return db('album')
             .where({ id: albumId })
             .select('id', 'description', 'target_id', 'is_active');
     };
-    async update(id, description, target_id) { 
+
+    async update(albumId, description, targetId) {
         try {
             await db.transaction(async (trx) => {
                 await db('album')
-                    .where({ id })
+                    .where({ id: albumId })
                     .update({
-                        description, target_id
+                        description, targetId
                     })
                     .transacting(trx);
             });
@@ -43,11 +44,12 @@ class AlbumRepositoryImplementation extends IAlbumRepository{
             throw new ApiError(httpStatus.INTERNAL_SERVER_ERROR,'Error while updating album');
         }
     };
-    async delete (id) {        
+
+    async delete (albumId) {
         try {
             await db.transaction(async (trx) => {
                 await db('album')
-                    .where({ id })
+                    .where({ id: albumId })
                     .update({ is_active: false })
                     .transacting(trx);
             });

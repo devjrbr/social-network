@@ -9,24 +9,24 @@ describe('Testing album feature', () => {
     let loginResponse;
     beforeAll(async () => {
         await db('user').insert({
-            id: 100,
+            id: 99876,
             full_name: 'Tadeu Smith',
-            email: 'tadeusmit@gmail.com',
+            email: 'taa@gmail.com',
             password: '$2b$10$OMDQ.q5dkZAZkQH1g5W6IOP4ZLCwBV4xnTCHDng2pNhlWOpq/n5xO',
             created_at: new Date(),
             updated_at: new Date(),
             is_active: true
         });
-        tempUser = await db('user').where({ id: 100 }).first();
+        tempUser = await db('user').where({ id: 99876 }).first();
         loginResponse = await request(app).post('/login').send({"email": tempUser.email, "password": "1234"});
 
         await db(`album`).insert({
-            id: 1000,
+            id: 55432,
             description: "Test Album",
             target_id: 1,
             is_active: true
         })
-        tempAlbum = await db('album').where({ id: 1000 }).first();
+        tempAlbum = await db('album').where({ id: 55432 }).first();
     });
     afterAll(async () => {
         await db('token').where({ user_id: tempUser.id }).del();
@@ -42,7 +42,7 @@ describe('Testing album feature', () => {
     });
     it('Should return an album by id', async () => {
         const { token } = loginResponse.body;
-        const album = await request(app).get('/album/1000').set('Authorization', token);
+        const album = await request(app).get('/album/55432').set('Authorization', token);
         expect(album.status).toBe(httpStatus.OK);
         expect(album.body).toBeDefined();
     });
@@ -56,12 +56,12 @@ describe('Testing album feature', () => {
     });
     it('Should delete an album', async () => {
         const { token } = loginResponse.body;
-        const album = await request(app).delete('/album/1000').set('Authorization', token);
+        const album = await request(app).delete('/album/55432').set('Authorization', token);
         expect(album.status).toBe(httpStatus.OK);
     });
     it('Should return a not found if trying to delete an album with non-existent id', async () => {
         const { token } = loginResponse.body;
-        const album = await request(app).delete('/album/100000').set('Authorization', token);
+        const album = await request(app).delete('/album/90908765').set('Authorization', token);
         expect(album.status).toBe(httpStatus.NOT_FOUND);
     });
 });

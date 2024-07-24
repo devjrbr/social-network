@@ -4,27 +4,27 @@ const httpStatus = require("../utils/statusCodes");
 class PostService {
     constructor(postRepository) {
         this.postRepository = postRepository;
-    }
-    async createPost(description, userId, target_id, type_id) {
-        return this.postRepository.create(description, userId, target_id, type_id);
+    };
+    createPost(description, userId, targetId, typeId) {
+        return this.postRepository.create(description, userId, targetId, typeId);
     };
     async getPostById(id) {
         const post = await this.postRepository.getById(id);
         if (!post) throw new ApiError(httpStatus.NOT_FOUND, 'Post not found');
         return post;
     };
-    async getAllPosts(userId) {
+    getAllPosts(userId) {
         return this.postRepository.getAll(userId);
     };
-    async updatePost(id, description, target_id, type_id) {
+    async updatePost(postId, description, targetId, typeId) {
         const post = await this.postRepository.getById(id);
         if (!post) throw new ApiError(httpStatus.NOT_FOUND, 'Post not found.');
-        return this.postRepository.update(id, description, target_id, type_id);
+        return this.postRepository.update(postId, description, targetId, typeId);
     };
-    async deletePost(id) {
-        const post = await this.postRepository.getById(id);
+    async deletePost(postId) {
+        const post = await this.postRepository.getById(postId);
         if (!post) throw new ApiError(httpStatus.NOT_FOUND, 'Post not found.');
-        await this.postRepository.delete(id);
+        await this.postRepository.delete(postId);
     };
 }
 

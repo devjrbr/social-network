@@ -12,8 +12,8 @@ const { ITokenRepository } = require("../repositories/interfaces/tokenRepository
 function configurePostContainer() {
     const postRepositoryImplementation = new PostRepositoryImplementation();
     const tokenRepositoryImplementation = new TokenRepositoryImplementation();
-    const postRepository = new PostRepository(postRepositoryImplementation, contract=IPostRepository);
-    const tokenRepository = new TokenRepository(tokenRepositoryImplementation, contract=ITokenRepository);
+    const postRepository = new PostRepository(postRepositoryImplementation, IPostRepository);
+    const tokenRepository = new TokenRepository(tokenRepositoryImplementation, ITokenRepository);
     const postService = new PostService(postRepository);
     const tokenService = new TokenService(tokenRepository);
     const postController = new PostController(postService, tokenService);

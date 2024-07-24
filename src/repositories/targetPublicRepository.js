@@ -5,17 +5,17 @@ class TargetPublicRepository {
         assertIsInstanceOfContract(repository, contract);
         this.repository = repository;
     }
-    async create(type) {
+    create(type) {
         return this.repository.create(type);
     };
-    async getAll(){
+    getAll(){
         return this.repository.getAll()
     };
-    async getById(id){
-        return this.repository.getById(id);
+    getById(targetPublicId){
+        return this.repository.getById(targetPublicId);
     };
-    async delete(id) {
-        return this.repository.delete(id);
+    delete(targetPublicId) {
+        return this.repository.delete(targetPublicId);
     };
 }
 

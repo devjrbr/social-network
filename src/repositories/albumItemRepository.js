@@ -4,18 +4,18 @@ class AlbumItemRepository {
     constructor(repository, contract) {
         assertIsInstanceOfContract(repository, contract);
         this.repository = repository;
-    }
-    async create(post_id, album_id) {
-        return this.repository.create(post_id, album_id);
     };
-    async getById(id){
-        return this.repository.getById(id);
+    create(postId, albumItemId) {
+        return this.repository.create(postId, albumItemId);
     };
-    async getAll(AlbumId){
-        return this.repository.getAll(AlbumId);
+    getById(albumItemId){
+        return this.repository.getById(albumItemId);
     };
-    async delete (id) {
-        this.repository.delete(id);
+    getAll(albumItemId){
+        return this.repository.getAll(albumItemId);
+    };
+    delete (albumItemId) {
+        this.repository.delete(albumItemId);
     };
 }
 

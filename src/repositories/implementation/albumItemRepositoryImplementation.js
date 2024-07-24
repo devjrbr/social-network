@@ -5,13 +5,13 @@ const { IAlbumItemRepository } = require("../interfaces/albumItemRepositoryAbstr
 
 
 class AlbumItemRepositoryImplementation extends IAlbumItemRepository {
-    async create(post_id, album_id) {
+    async create(postId, albumItemId) {
         try {
             return await db.transaction(async (trx) => {
                 const [createdItem] = await db('Album_Item')
                     .insert({
-                        post_id: post_id,
-                        album_id: album_id
+                        post_id: postId,
+                        album_id: albumItemId
                     })
                     .returning(['id', 'post_id', 'album_id', 'is_active'])
                     .transacting(trx);
@@ -23,25 +23,29 @@ class AlbumItemRepositoryImplementation extends IAlbumItemRepository {
         }
     }
 
-    async getById(id) {
-        return db('Album_Item')
-            .where({ id: id })
-            .select(['id', 'post_id', 'album_id', 'is_active'])
-            .first();
+    getById(albumItemId) {
+        try {
+            return db('Album_Item')
+                .where({ id: albumItemId })
+                .select(['id', 'post_id', 'album_id', 'is_active'])
+                .first();
+        } catch (err){
+            console.error(err);
+        }
     }
 
-    async getAll(albumId) {
+    getAll(albumItemId) {
         return db('Album_Item')
-            .where({ id: albumId })
+            .where({ id: albumItemId })
             .select(['id', 'post_id', 'album_id', 'is_active']);
     }
 
-    async delete(id) {
+    async delete(albumItemId) {
         try {
             await db.transaction(async (trx) => {
                 await db('Album_Item')
                     .update({ is_active: false })
-                    .where({ id: id })
+                    .where({ id: albumItemId })
                     .transacting(trx);
             });
         } catch (error) {

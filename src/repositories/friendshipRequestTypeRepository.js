@@ -4,19 +4,19 @@ class FriendshipRequestTypeRepository {
     constructor(repository, contract) {
         assertIsInstanceOfContract(repository, contract);
         this.repository = repository;
-    }
-    async create(type) {
-        return this.repository.create(type);
-    }
-    async getAll(){
+    };
+    create(newFriendshipRequestType) {
+        return this.repository.create(newFriendshipRequestType);
+    };
+    getAll(){
         return this.repository.getAll();
-    }
-    async getById(id){
-        return this.repository.getById(id);
-    }
-    async delete(id){
-        return this.repository.delete(id);
-    }
+    };
+    getById(friendshipRequestId){
+        return this.repository.getById(friendshipRequestId);
+    };
+    delete(friendshipRequestId){
+        return this.repository.delete(friendshipRequestId);
+    };
 }
 
 module.exports = FriendshipRequestTypeRepository;

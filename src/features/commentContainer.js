@@ -12,8 +12,8 @@ const { ITokenRepository } = require("../repositories/interfaces/tokenRepository
 function configureCommentContainer() {
     const commentRepositoryImplementation = new CommentRepositoryImplementation();
     const tokenRepositoryImplementation = new TokenRepositoryImplementation();
-    const commentRepository = new CommentRepository(commentRepositoryImplementation, contract=ICommentRepository);
-    const tokenRepository = new TokenRepository(tokenRepositoryImplementation, contract=ITokenRepository);
+    const commentRepository = new CommentRepository(commentRepositoryImplementation, ICommentRepository);
+    const tokenRepository = new TokenRepository(tokenRepositoryImplementation, ITokenRepository);
     const tokenService = new TokenService(tokenRepository);
     const commentService = new CommentService(commentRepository);
     const commentController = new CommentController(commentService, tokenService);

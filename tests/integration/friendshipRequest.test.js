@@ -7,10 +7,9 @@ describe('Testing FriendshipRequest feature', () => {
     let loggedUser;
     let receiverFriendshipRequestUser;
     let loginResponse;
-    let tempUser;
     beforeAll(async () => {
         await db('user').insert({
-            id: 10000,
+            id: 12345678,
             full_name: 'Sender',
             email: 'sender@gmail.com',
             password: '$2b$10$OMDQ.q5dkZAZkQH1g5W6IOP4ZLCwBV4xnTCHDng2pNhlWOpq/n5xO',
@@ -18,7 +17,7 @@ describe('Testing FriendshipRequest feature', () => {
             updated_at: new Date(),
             is_active: true
         });
-        loggedUser = await db('user').where({ id: 10000 }).first();
+        loggedUser = await db('user').where({ id: 12345678 }).first();
         loginResponse = await request(app).post('/login').send({"email": loggedUser.email, "password": "1234"});
         await db('user').insert({
             id: 20000,
@@ -79,7 +78,7 @@ describe('Testing FriendshipRequest feature', () => {
         const senderUserId = receiverFriendshipRequestUser.id
         const { token } = loginResponse.body;
         await db('friendship_request').insert({
-            id: 22222,
+            id: 67893,
             sender_id: senderUserId,
             receiver_id: loggedUser.id,
             request_type_id: 1,
@@ -87,7 +86,7 @@ describe('Testing FriendshipRequest feature', () => {
             updated_at: new Date()
         });
         const response = await request(app)
-            .delete('/friendship_request/22222')
+            .delete('/friendship_request/67893')
             .set('authorization', token);
         expect(response.status).toBe(httpStatus.OK);
         expect(response.body).toBeDefined();

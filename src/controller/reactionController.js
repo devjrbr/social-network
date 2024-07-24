@@ -8,8 +8,8 @@ class ReactionController {
     async createReaction(req, res) {
         const { authorization: token } = req.headers;
         const userId = await this.tokenService.getIdFromToken(token);
-        const { reaction_type_id, post_id } = req.body;
-        const reaction = await this.reactionService.createReaction(userId, reaction_type_id, post_id);
+        const { reaction_type_id: reactionTypeId, post_id: postId } = req.body;
+        const reaction = await this.reactionService.createReaction(userId, reactionTypeId, postId);
         return res.status(httpStatus.CREATED).json({
             message: 'Reaction created successfully!',
             data: reaction
@@ -32,8 +32,8 @@ class ReactionController {
         const { authorization: token } = req.headers;
         await this.tokenService.verifyToken(token);
         const { id } = req.params;
-        const { user_id, reaction_type_id, post_id } = req.body;
-        await this.reactionService.updateReaction(id, user_id, reaction_type_id, post_id);
+        const { user_id: userId, reaction_type_id: reactionTypeId, post_id: postId } = req.body;
+        await this.reactionService.updateReaction(id, userId, reactionTypeId, postId);
         return res.status(httpStatus.OK).json({
             details: "Reaction updated successfully"
         });

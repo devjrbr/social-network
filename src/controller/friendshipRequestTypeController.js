@@ -3,7 +3,7 @@ const httpStatus = require('../utils/statusCodes');
 class FriendshipRequestTypeController {
     constructor(friendshipRequestTypeService) {
         this.friendshipRequestTypeService = friendshipRequestTypeService;
-    }
+    };
     async create(req, res) {
         const { type } = req.body;
         const friendshipRequestType = await this.friendshipRequestTypeService.create(type);

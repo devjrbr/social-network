@@ -4,16 +4,16 @@ const ApiError = require("../../utils/ApiError");
 const { IPostRepository } = require("../interfaces/postRepositoryAbstract");
 
 class PostRepositoryImplementation extends IPostRepository {
-    async create(description, userId, target_id, type_id) {
+    async create(description, userId, targetId, typeId) {
         try {
             const [post] = await db.transaction(async (trx) => {
                 return db('post')
                     .transacting(trx)
                     .insert({
-                        description,
+                        description: description,
                         user_id: userId,
-                        target_id,
-                        type_id
+                        target_id: targetId,
+                        type_id: typeId
                     });
             });
             return post;
@@ -22,9 +22,9 @@ class PostRepositoryImplementation extends IPostRepository {
         }
     };
 
-    async getById(id){
+    async getById(postId){
         return db('post')
-            .where({ id })
+            .where({ id: postId })
             .select('id', 'description', 'user_id', 'target_id', 'type_id', 'is_active')
             .first();
     };
@@ -35,15 +35,15 @@ class PostRepositoryImplementation extends IPostRepository {
             .select('id', 'description', 'user_id', 'target_id', 'type_id', 'is_active');
     };
 
-    async update(id, description, target_id, type_id) {
+    async update(id, description, targetId, typeId) {
         try {
             await db.transaction(async (trx) => {
                 await db('post')
                     .where({ id })
                     .update({
                         description: description,
-                        target_id: target_id,
-                        type_id: type_id
+                        target_id: targetId,
+                        type_id: typeId
                     })
                     .transacting(trx);
             });
@@ -52,11 +52,11 @@ class PostRepositoryImplementation extends IPostRepository {
         }
     };
 
-    async delete (id) {
+    async delete (postId) {
         try {
             await db.transaction(async (trx) => {
                 await db('post')
-                    .where({ id })
+                    .where({ id: postId })
                     .update({ is_active: false })
                     .transacting(trx);
             });

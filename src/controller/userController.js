@@ -6,10 +6,10 @@ class UserController {
     this.userService = userService;
     this.authenticateService = authenticateService;
     this.tokenService = tokenService;
-  }
+  };
   async create(req, res) {
-    const { full_name, email, password } = req.body;
-    const user = await this.userService.create(full_name, email, password);
+    const { full_name: fullName, email, password } = req.body;
+    const user = await this.userService.create(fullName, email, password);
     return res.status(httpStatus.CREATED).json({
       message: 'User created successfully!',
       data: user
@@ -35,10 +35,10 @@ class UserController {
     });
   };
   async getUserById(req, res) {
-    const { id } = req.params;
+    const { id: userId } = req.params;
     const { authorization: token } = req.headers;
     await this.tokenService.verifyToken(token);
-    const user = await this.userService.getUserById(id);
+    const user = await this.userService.getUserById(userId);
     return res.status(httpStatus.OK).json(user);
   };
   async getUsers(req, res) {
@@ -48,8 +48,8 @@ class UserController {
   async updateUser(req, res) {
     const { authorization: token } = req.headers;
     const userId = await this.tokenService.getIdFromToken(token);
-    const { full_name, email, password } = req.body;
-    await this.userService.updateUserById(userId, full_name, email, password);
+    const { full_name: fullName, email, password } = req.body;
+    await this.userService.updateUserById(userId, fullName, email, password);
     return res.status(httpStatus.OK).json({
       details: "User updated successfully"
     });  

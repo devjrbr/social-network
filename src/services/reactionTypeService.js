@@ -5,16 +5,16 @@ class ReactionTypeService {
     constructor(reactionTypeRepository) {
         this.reactionTypeRepository = reactionTypeRepository;
     }
-    async createReactionType(description) {
+    createReactionType(description) {
         return this.reactionTypeRepository.create(description);
     };
-    async getAllReactionsType() {
+    getAllReactionsType() {
         return this.reactionTypeRepository.getAll();
     };
-    async deleteReactionType(id) {
-        const reactionsType = await this.reactionTypeRepository.getById(id);
+    async deleteReactionType(reactionTypeId) {
+        const reactionsType = await this.reactionTypeRepository.getById(reactionTypeId);
         if (!reactionsType) throw new ApiError(httpStatus.NOT_FOUND, 'Reaction type not found');
-        await this.reactionTypeRepository.delete(id);
+        await this.reactionTypeRepository.delete(reactionTypeId);
     };
 }
 

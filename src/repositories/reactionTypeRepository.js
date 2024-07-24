@@ -5,17 +5,17 @@ class ReactionTypeRepository {
         assertIsInstanceOfContract(repository, contract);
         this.repository = repository;
     }
-    async create(description) {
-        return this.repository.create(description);
+    create(reactionTypeDescription) {
+        return this.repository.create(reactionTypeDescription);
     };
-    async getById(id){
-        return this.repository.getById(id);
+    getById(reactionTypeId){
+        return this.repository.getById(reactionTypeId);
     };
-    async getAll(){
+    getAll(){
         return this.repository.getAll();
     };
-    async delete (id) {
-        return this.repository.delete(id);
+    delete (reactionTypeId) {
+        return this.repository.delete(reactionTypeId);
     };
 }
 
