@@ -5,7 +5,7 @@ class FriendshipRequestController {
         this.friendshipRequestService = friendshipRequestService;
         this.tokenService = tokenService;
         this.friendshipService = friendshipService;
-    }
+    };
     async sendFriendshipRequest(req, res) {
         const { authorization: token } = req.headers;
         const senderID = await this.tokenService.getIdFromToken(token);

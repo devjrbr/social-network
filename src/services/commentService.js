@@ -16,10 +16,10 @@ class CommentService {
     getAllComments(commentId) {
         return this.commentRepository.getAll(commentId);
     };
-    async updateComment(commentId, description, userId, postId) {
+    async updateComment(commentId, description) {
         const comment = await this.commentRepository.getById(commentId);
         if (!comment) throw new ApiError(httpStatus.NOT_FOUND, 'Comment not found');
-        await this.commentRepository.update(commentId, description, userId, postId);
+        await this.commentRepository.update(commentId, description);
     };
     async deleteComment(commentId) {
         const comment = await this.commentRepository.getById(commentId);

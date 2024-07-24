@@ -24,10 +24,14 @@ class AlbumItemRepositoryImplementation extends IAlbumItemRepository {
     }
 
     getById(albumItemId) {
-        return db('Album_Item')
-            .where({ id: albumItemId })
-            .select(['id', 'post_id', 'album_id', 'is_active'])
-            .first();
+        try {
+            return db('Album_Item')
+                .where({ id: albumItemId })
+                .select(['id', 'post_id', 'album_id', 'is_active'])
+                .first();
+        } catch (err){
+            console.error(err);
+        }
     }
 
     getAll(albumItemId) {

@@ -6,10 +6,10 @@ const validateSchema = (schema) => async (req, res, next) => {
         const { authorization } = req.headers;
         const { id } = req.params;
         await schema.validate({
-            id,
-            authorization,
-            reactionTypeId,
-            postId
+            id: id,
+            authorization: authorization,
+            reaction_type_id: reactionTypeId,
+            post_id: postId
         })
         next();
     } catch (error) {

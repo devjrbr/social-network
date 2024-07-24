@@ -11,7 +11,7 @@ describe('Testing user feature', () => {
     await db('user').insert({
       id: 10000,
       full_name: 'Tadeu Smith',
-      email: 'tadeusmit@gmail.com',
+      email: 'tads@gmail.com',
       password: '$2b$10$OMDQ.q5dkZAZkQH1g5W6IOP4ZLCwBV4xnTCHDng2pNhlWOpq/n5xO',
       created_at: new Date(),
       updated_at: new Date(),

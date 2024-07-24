@@ -14,7 +14,7 @@ class AlbumController {
         });
     }
     async getAlbumById(req, res) {
-        const { albumId } = req.params;
+        const { id: albumId } = req.params;
         const { authorization: token } = req.headers;
         await this.tokenService.verifyToken(token); 
         const album = await this.albumService.getAlbumById(albumId);
@@ -22,25 +22,25 @@ class AlbumController {
     }
     async getAlbums(req, res) {
         const { authorization: token } = req.headers;
-        const albumId = await this.tokenService.getIdFromToken(token);
-        const album = await this.albumService.getAllAlbums(albumId);
+        const userId = await this.tokenService.getIdFromToken(token);
+        const album = await this.albumService.getAllAlbums(userId);
         return res.status(httpStatus.OK).json(album);
     }
     async updateAlbum(req, res) {
-        const { id } = req.params;
+        const { id: albumId } = req.params;
         const { authorization: token } = req.headers;
         await this.tokenService.verifyToken(token);
         const { description, target_id: targetId } = req.body;
-        await this.albumService.updateAlbum(id, description, targetId);
+        await this.albumService.updateAlbum(albumId, description, targetId);
         return res.status(httpStatus.OK).json({
             details: "Album updated successfully"
         });
     }
     async deleteAlbum(req, res) {
-        const { id } = req.params;
+        const { id: albumId } = req.params;
         const { authorization: token } = req.headers;
         await this.tokenService.verifyToken(token);
-        await this.albumService.deleteAlbum(id);
+        await this.albumService.deleteAlbum(albumId);
         return res.status(httpStatus.OK).json({
             details: "Album deleted successfully"
         });

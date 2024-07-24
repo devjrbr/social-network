@@ -87,7 +87,7 @@ describe('CommentsService', () => {
             mockRepository.getById.mockResolvedValueOnce({ id: commentId });
             await commentsService.updateComment(commentId, updatedDescription, updatedUserId, updatedPostId);
             expect(mockRepository.getById).toHaveBeenCalledWith(commentId);
-            expect(mockRepository.update).toHaveBeenCalledWith(commentId, updatedDescription, updatedUserId, updatedPostId);
+            expect(mockRepository.update).toHaveBeenCalledWith(commentId, updatedDescription);
         });
         it('should throw an error when trying to update a non-existing comment', async () => {
             mockRepository.getById.mockResolvedValueOnce(null);

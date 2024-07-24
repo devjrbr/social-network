@@ -22,7 +22,7 @@ class AlbumItemController {
         return res.status(httpStatus.OK).json(albumItem);
     }
     async deleteAlbumItem(req, res) {
-        const { album_item_id: albumItemId } = req.params;
+        const { id: albumItemId } = req.params;
         const { authorization: token } = req.headers;
         await this.tokenService.verifyToken(token); 
         await this.albumItemService.deleteAlbumItem(albumItemId);

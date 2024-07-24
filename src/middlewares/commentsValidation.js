@@ -3,14 +3,14 @@ const httpStatus = require("../utils/statusCodes");
 const validateSchema = (schema) => async (req, res, next) => {
     try {
         const { description, user_id: userId, post_id: postId } = req.body;
-        const { id } = req.params;
+        const { id: commentId } = req.params;
         const { authorization } = req.headers;
         await schema.validate({
-            id,
-            authorization,
-            description,
-            userId,
-            post_id
+            id: commentId,
+            authorization: authorization,
+            description: description,
+            user_id: userId,
+            post_id: postId
         })
         next();
     } catch (error) {

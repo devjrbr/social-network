@@ -1,7 +1,7 @@
 {
-  "name": "api-e-banco-de-dados",
+  "name": "social-network",
   "version": "1.0.0",
-  "description": "",
+  "description": "Fake social network project using nodejs",
   "main": "users.js",
   "scripts": {
     "test": "jest --detectOpenHandles",

@@ -18,8 +18,7 @@ class UserRepositoryImplementation extends IUserRepository{
         } catch (error) {
             throw new ApiError(httpStatus.INTERNAL_SERVER_ERROR,'Error while creating user');
         }
-    }
-
+    };
     getByEmail(email) {
         try {
             return db('user')
@@ -29,7 +28,6 @@ class UserRepositoryImplementation extends IUserRepository{
             throw new ApiError(httpStatus.INTERNAL_SERVER_ERROR, 'Error while getting a email by id');
         }      
     };
-    
     getById(userId){
         try {
             return db('user')
@@ -40,7 +38,6 @@ class UserRepositoryImplementation extends IUserRepository{
             throw new ApiError(httpStatus.NOT_FOUND, 'Error while getting user by id');
         }
     };
-    
     getAll(){
         try {
             return db('user')
@@ -50,7 +47,6 @@ class UserRepositoryImplementation extends IUserRepository{
             throw new Error('Error while getting all users');
         }
     };
-    
     update(userId, fullName, email) {
         try {
             db('user')
@@ -64,7 +60,6 @@ class UserRepositoryImplementation extends IUserRepository{
             throw new ApiError(httpStatus.INTERNAL_SERVER_ERROR,'Error while updating user');
         }
     };
-    
     delete (userId) {
         try {
             db('user')
@@ -74,7 +69,6 @@ class UserRepositoryImplementation extends IUserRepository{
             throw new ApiError(httpStatus.INTERNAL_SERVER_ERROR,'Error while deleting user');
         }
     };
-    
     getFeedNews(userId) {
         try {
             return db.raw(`
@@ -138,7 +132,6 @@ class UserRepositoryImplementation extends IUserRepository{
             throw new ApiError(httpStatus.INTERNAL_SERVER_ERROR, 'Error while getting a feed');
         }
     };
-    
     getPostStatistics() {
         try {
             return db.raw(`

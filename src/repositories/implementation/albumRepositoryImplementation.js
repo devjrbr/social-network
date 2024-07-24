@@ -18,14 +18,12 @@ class AlbumRepositoryImplementation extends IAlbumRepository{
             throw new ApiError(httpStatus.INTERNAL_SERVER_ERROR,'Error while creating a new album');
         }
     };
-
     getById(albumId){
         return db('album')
             .where({ id: albumId })
             .select('id', 'description', 'target_id', 'is_active')
             .first();        
     };
-
     getAll(albumId){
         return db('album')
             .where({ id: albumId })

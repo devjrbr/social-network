@@ -13,7 +13,7 @@ describe('Testing Reaction feature', () => {
     beforeAll(async () => {
         // Criar usuário de teste
         await db('user').insert({
-            id: 10000,
+            id: 8080,
             full_name: 'Test User',
             email: 'testuser@gmail.com',
             password: '$2b$10$OMDQ.q5dkZAZkQH1g5W6IOP4ZLCwBV4xnTCHDng2pNhlWOpq/n5xO',
@@ -21,7 +21,7 @@ describe('Testing Reaction feature', () => {
             updated_at: new Date(),
             is_active: true
         });
-        loggedUser = await db('user').where({ id: 10000 }).first();
+        loggedUser = await db('user').where({ id: 8080 }).first();
         loginResponse = await request(app).post('/login').send({"email": loggedUser.email, "password": "1234"});
         await db('user').insert({
             id: 99999,
