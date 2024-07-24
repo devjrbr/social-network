@@ -10,7 +10,7 @@ class UserService {
     const isEmailTaken = await this.userRepository.getByEmail(email);
     if (isEmailTaken) throw new ApiError(httpStatus.CONFLICT,'Email already taken');
     const hashedPassword = await this.hashService.hash(password);
-    this.userRepository.create(fullName, email, hashedPassword);
+    return this.userRepository.create(fullName, email, hashedPassword);
   };
   async getUserById(id) {
       const user = await this.userRepository.getById(id);

@@ -80,7 +80,7 @@ describe('CommentsService', () => {
         });
     });
     describe('updateComment', () => {
-        it('should update an existing comment', async () => {
+        it('should update an existing comment by ID', async () => {
             const updatedDescription = "Andando por New York";
             const updatedUserId = 2;
             const updatedPostId = 3;
