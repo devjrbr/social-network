@@ -8,8 +8,8 @@ class CommentController {
     async create(req, res) {
         const { authorization: token } = req.headers;
         await this.tokenService.verifyToken(token);
-        const { description, user_id, post_id } = req.body;
-        const comment = await this.commentService.create(description, user_id, post_id);
+        const { description, user_id: userId, post_id: postId } = req.body;
+        const comment = await this.commentService.create(description, userId, postId);
         return res.status(httpStatus.CREATED).json({
             message: 'Comment created successfully!',
             data: comment
@@ -32,8 +32,8 @@ class CommentController {
         const { authorization: token } = req.headers;
         await this.tokenService.verifyToken(token);
         const { id } = req.params;
-        const { description, user_id, post_id } = req.body;
-        await this.commentService.updateComment(id, description, user_id, post_id);
+        const { description, user_id: userId, post_id: postId } = req.body;
+        await this.commentService.updateComment(id, description, userId, postId);
         return res.status(httpStatus.OK).json({
             details: "Comment updated successfully"
         });

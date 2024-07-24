@@ -12,8 +12,8 @@ const { ITokenRepository } = require("../repositories/interfaces/tokenRepository
 function configureReactionContainer() {
     const reactionRepositoryImplementation = new ReactionRepositoryImplementation();
     const tokenRepositoryImplementation = new TokenRepositoryImplementation();
-    const reactionRepository = new ReactionRepository(reactionRepositoryImplementation, contract=IReactionRepository);
-    const tokenRepository = new TokenRepository(tokenRepositoryImplementation, contract=ITokenRepository);
+    const reactionRepository = new ReactionRepository(reactionRepositoryImplementation, IReactionRepository);
+    const tokenRepository = new TokenRepository(tokenRepositoryImplementation, ITokenRepository);
     const tokenService = new TokenService(tokenRepository);
     const reactionService = new ReactionService(reactionRepository);
     const reactionController = new ReactionController(reactionService, tokenService);

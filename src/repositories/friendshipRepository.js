@@ -4,18 +4,18 @@ class FriendshipRepository {
     constructor(repository, contract) {
         assertIsInstanceOfContract(repository, contract);
         this.repository = repository;
-    }
-    async create(principal_user_id, friend_id) {
-        return this.repository.create(principal_user_id, friend_id);
     };
-    async getAll(userId){
+    create({principalUserId, friendId}) {
+        return this.repository.create(principalUserId, friendId);
+    };
+    getAll(userId){
         return this.repository.getAll(userId);
     };
-    async getById(id){
-        return this.repository.getById(id);
+    getById(userId){
+        return this.repository.getById(userId);
     };
-    async delete(id){
-        this.repository.delete(id);
+    delete(userId){
+        this.repository.delete(userId);
     };
 }
 

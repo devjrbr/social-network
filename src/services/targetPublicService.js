@@ -4,21 +4,22 @@ const httpStatus = require("../utils/statusCodes");
 class TargetPublicService {
     constructor(targetPublicRepository) {
         this.targetPublicRepository = targetPublicRepository;
-    }
-    async createTargetPublic(type) {
-        return this.targetPublicRepository.create(type);
     };
-    async getAllTargetPublic() {
+    createTargetPublic(newTargetPublicType) {
+        return this.targetPublicRepository.create(newTargetPublicType);
+    };
+    getAllTargetPublic() {
         return this.targetPublicRepository.getAll();
     };
-    async getById(id){
-        const targetPublic = await this.targetPublicRepository.getById(id);
+    async getById(targetPublicId){
+        const targetPublic = await this.targetPublicRepository.getById(targetPublicId);
         if (!targetPublic) throw new ApiError(httpStatus.NOT_FOUND, 'Target public not found.');
         return targetPublic;
     };
-    async deleteTargetPublic(id) {
-        await this.getById(id);
-        await this.targetPublicRepository.delete(id);
+    async deleteTargetPublic(targetPublicId) {
+        const targetPublic = await this.targetPublicRepository.getById(targetPublicId);
+        if (!targetPublic) throw new ApiError(httpStatus.NOT_FOUND, 'Target public not found.');
+        await this.targetPublicRepository.delete(targetPublicId);
     };
 }
 

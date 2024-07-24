@@ -18,6 +18,7 @@ const updateReactionsSchemaAuthorization = yup.object().shape({
     id: yup.number().integer().required(),
     authorization: yup.string().required()
 });
+
 module.exports = {
     createReactionsSchema,
     updateReactionsSchemaAuthorization,

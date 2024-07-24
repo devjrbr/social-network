@@ -4,18 +4,18 @@ class FileTypeRepository {
     constructor(repository, contract) {
         assertIsInstanceOfContract(repository, contract);
         this.repository = repository;
-    }
-    async create(type) {
-        return this.repository.create(type);
     };
-    async getAll(){
+    create(newFileType) {
+        return this.repository.create(newFileType);
+    };
+    getAll(){
         return this.repository.getAll();
     };
-    async getById(id){
-        return this.repository.getById(id);
+    getById(fileTypeId){
+        return this.repository.getById(fileTypeId);
     }
-    async delete (id) {
-        this.repository.delete(id);
+    delete (fileTypeId) {
+        this.repository.delete(fileTypeId);
     };
 }
 

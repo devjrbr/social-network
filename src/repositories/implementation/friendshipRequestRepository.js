@@ -5,11 +5,11 @@ const friendshipRequestTypeStatus = require("../../utils/friendshipRequestTypeSt
 const httpStatus = require('../../utils/statusCodes');
 
 class FriendshipRequestRepositoryImplementation extends IFriendshipRequestRepository {
-    async create(senderId, receiveId) {
+    create(senderId, receiverId) {
         try {
-            await db("friendship_request").insert({
+            db("friendship_request").insert({
                 sender_id: senderId,
-                receiver_id: receiveId,
+                receiver_id: receiverId,
                 request_type_id: friendshipRequestTypeStatus.AWAITING_APPROVAL
             });
         } catch (error) {
@@ -17,9 +17,9 @@ class FriendshipRequestRepositoryImplementation extends IFriendshipRequestReposi
         }
     }
 
-    async getAll(userId) {
+    getAll(userId) {
         try {
-            return await db("friendship_request")
+            return db("friendship_request")
                 .where("sender_id", userId)
                 .orWhere("receiver_id", userId)
                 .select("*");
@@ -28,9 +28,9 @@ class FriendshipRequestRepositoryImplementation extends IFriendshipRequestReposi
         }
     }
 
-    async accept(requestId) {
+    accept(requestId) {
         try {
-            await db("friendship_request")
+            db("friendship_request")
                 .where({ id: requestId })
                 .update({
                     request_type_id: friendshipRequestTypeStatus.ACCEPTED,
@@ -41,9 +41,9 @@ class FriendshipRequestRepositoryImplementation extends IFriendshipRequestReposi
         }
     }
 
-    async delete(requestId) {
+    delete(requestId) {
         try {
-            await db("friendship_request")
+            db("friendship_request")
                 .where({ id: requestId })
                 .del();
         } catch (error) {

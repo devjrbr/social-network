@@ -4,21 +4,21 @@ class CommentRepository {
     constructor(repository, contract) {
         assertIsInstanceOfContract(repository, contract);
         this.repository = repository;
-    }
-    async create(description, user_id, post_id) {
-        return this.repository.create(description, user_id, post_id);
     };
-    async getById(id){
-        return this.repository.getById(id);
+    create(description, userId, postId) {
+        return this.repository.create(description, userId, postId);
     };
-    async getAll(commentId){
+    getById(postId){
+        return this.repository.getById(postId);
+    };
+    getAll(commentId){
         return this.repository.getAll(commentId);
     };
-    async update(id, description, user_id, post_id) {
-        this.repository.update(id, description, user_id, post_id);
+    update(id, description, userId, postId) {
+        this.repository.update(id, description, userId, postId);
     };
-    async delete (id) {
-        this.repository.delete(id);
+    delete (commentId) {
+        this.repository.delete(commentId);
     };
 }
 

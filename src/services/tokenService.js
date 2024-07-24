@@ -6,7 +6,7 @@ class TokenService {
     constructor(tokenRepository, hashService) {
         this.tokenRepository = tokenRepository;
         this.hashService = hashService;
-    }
+    };
     async generateAuthTokens(user) {
         const payload = {id: user};
         const token = await this.generateToken(payload, process.env.JWT_SECRET, '2h');

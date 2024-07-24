@@ -4,27 +4,27 @@ const httpStatus = require("../utils/statusCodes");
 class CommentService {
     constructor(commentRepository) {
         this.commentRepository = commentRepository;
-    }
-    async create(description, user_id, post_id) {
-        return this.commentRepository.create(description, user_id, post_id);
     };
-    async getCommentById(id) {
-        const comment = await this.commentRepository.getById(id);
+    create(description, userId, postId) {
+        return this.commentRepository.create(description, userId, postId);
+    };
+    async getCommentById(commentId) {
+        const comment = await this.commentRepository.getById(commentId);
         if (!comment) throw new ApiError(httpStatus.NOT_FOUND, 'Comment not found');
         return comment;
     };
-    async getAllComments(commentId) {
+    getAllComments(commentId) {
         return this.commentRepository.getAll(commentId);
     };
-    async updateComment(id, description, user_id, post_id) {
-        const comment = await this.commentRepository.getById(id);
+    async updateComment(commentId, description, userId, postId) {
+        const comment = await this.commentRepository.getById(userId);
         if (!comment) throw new ApiError(httpStatus.NOT_FOUND, 'Comment not found');
-        await this.commentRepository.update(id, description, user_id, post_id);
+        await this.commentRepository.update(commentId, description, userId, postId);
     };
-    async deleteComment(id) {
-        const comment = await this.commentRepository.getById(id);
+    async deleteComment(commentId) {
+        const comment = await this.commentRepository.getById(commentId);
         if (!comment) throw new ApiError(httpStatus.NOT_FOUND, 'Comment not found');
-        await this.commentRepository.delete(id);
+        await this.commentRepository.delete(commentId);
     };
 }
 

@@ -4,7 +4,7 @@ const ApiError = require("../utils/ApiError");
 class AlbumService {
     constructor(albumRepository) {
         this.albumRepository = albumRepository;
-    }
+    };
     createAlbum(description, targetId) {
         return this.albumRepository.create(description, targetId);
     };
@@ -16,10 +16,10 @@ class AlbumService {
     getAllAlbums(albumId) {
         return this.albumRepository.getAll(albumId);
     };
-    async updateAlbum(id, description, target_id) {
-        const album = await this.albumRepository.getById(id);
+    async updateAlbum(albumId, description, targetId) {
+        const album = await this.albumRepository.getById(albumId);
         if (!album) throw new ApiError(httpStatus.NOT_FOUND, 'Album not found!');
-        await this.albumRepository.update(id, description, target_id);
+        await this.albumRepository.update(albumId, description, targetId);
     };
     async deleteAlbum(albumId) {
         const album = await this.albumRepository.getById(albumId);

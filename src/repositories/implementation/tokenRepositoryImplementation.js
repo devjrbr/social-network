@@ -4,39 +4,40 @@ const httpStatus = require("../../utils/statusCodes");
 const {ITokenRepository} = require("../interfaces/tokenRepositoryAbstract");
  
 class TokenRepositoryImplementation extends ITokenRepository{
-async create(token, user_id) {
-    try {
-        const result = await db('token').insert({
-        value: token,
-        user_id: user_id
-    });
-        return result;
-    } catch (error) {
-        throw new ApiError(httpStatus.INTERNAL_SERVER_ERROR,'Error while creating token');
+    create(token, userId) {
+        try {
+            return db('token').insert({
+                value: token,
+                user_id: userId
+            });
+        } catch (error) {
+            throw new ApiError(httpStatus.INTERNAL_SERVER_ERROR,'Error while creating token');
+        }
     }
-    }
-async getTokenByUserId(userId) {
+
+    getTokenByUserId(userId) {
     try {
-        const token = await db('token').where({ user_id: userId }).first();
-        return token;
+        return db('token').where({ user_id: userId }).first();
     } catch (error) {
         throw new ApiError(httpStatus.INTERNAL_SERVER_ERROR,'Error while revoking token');
     }
 }
-async revokeTokenByUserId(userId) {
-    try {
-        await db('token').where({ user_id: userId }).del();
-    } catch (error) {
-        throw new Error('Error while revoking token');
+
+    revokeTokenByUserId(userId) {
+        try {
+            db('token').where({ user_id: userId }).del();
+        } catch (error) {
+            throw new Error('Error while revoking token');
+        }
+    }
+
+    updateById(id, newToken) {
+        try {
+            db('token').where({ id: id }).update({ value: newToken });
+        } catch (error) {
+            throw new ApiError(httpStatus.INTERNAL_SERVER_ERROR,'Error while deleting token');
+        }
     }
 }
-
-async updateById(id, newToken) {
-    try {
-        await db('token').where({ id: id }).update({ value: newToken });
-    } catch (error) {
-        throw new ApiError(httpStatus.INTERNAL_SERVER_ERROR,'Error while deleting token');
-    }
-}}
 
 module.exports = TokenRepositoryImplementation;

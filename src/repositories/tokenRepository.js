@@ -4,19 +4,19 @@ class TokenRepository {
     constructor(repository, contract) {
         assertIsInstanceOfContract(repository, contract);
         this.repository = repository;
-    }
-    async create(token, user_id) {
-        return this.repository.create(token, user_id);
     };
-    async getTokenByUserId(userId) {
+    create(token, userId) {
+        return this.repository.create(token, userId);
+    };
+    getTokenByUserId(userId) {
         return this.repository.getTokenByUserId(userId);
     };
-    async revokeTokenByUserId(userId){
+    revokeTokenByUserId(userId){
         return this.repository.revokeTokenByUserId(userId);
-    }
-    async updateById(id, newToken){
-        return this.repository.updateById(id, newToken);
-    }
+    };
+    updateById(tokenId, newToken){
+        return this.repository.updateById(tokenId, newToken);
+    };
 }
 
 module.exports = TokenRepository;

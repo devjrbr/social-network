@@ -12,8 +12,8 @@ const { ITokenRepository } = require("../repositories/interfaces/tokenRepository
 function configureAlbumItemContainer() {
     const albumItemRepositoryImplementation = new AlbumItemRepositoryImplementation();
     const tokenRepositoryImplementation = new TokenRepositoryImplementation();
-    const tokenRepository = new TokenRepository(tokenRepositoryImplementation, contract=ITokenRepository);
-    const albumItemRepository = new AlbumItemRepository(albumItemRepositoryImplementation, contract=IAlbumItemRepository);
+    const tokenRepository = new TokenRepository(tokenRepositoryImplementation, ITokenRepository);
+    const albumItemRepository = new AlbumItemRepository(albumItemRepositoryImplementation, IAlbumItemRepository);
     const tokenService = new TokenService(tokenRepository);
     const albumItemService = new AlbumItemService(albumItemRepository);
     const albumItemController = new AlbumItemController(albumItemService, tokenService);

@@ -21,9 +21,9 @@ class ReactionRepositoryImplementation extends IReactionRepository {
         }
     };
 
-    async getById(id){
+    async getById(reactionId){
         return db('reaction')
-            .where({ id })
+            .where({ id: reactionId })
             .select('id', 'user_id', 'reaction_type_id', 'post_id', 'is_active')
             .first();
     };
@@ -51,11 +51,11 @@ class ReactionRepositoryImplementation extends IReactionRepository {
         }
     };
 
-    async delete (id) {
+    async delete (reactionId) {
         try {
             await db.transaction(async (trx) => {
                 await db('reaction')
-                    .where({ id })
+                    .where({ id: reactionId })
                     .update({ is_active: false })
                     .transacting(trx);
             });

@@ -12,8 +12,8 @@ const { ITokenRepository } = require("../repositories/interfaces/tokenRepository
 function configureTargetPublicContainer(){
     const targetPublicRepositoryImplementation = new TargetPublicRepositoryImplementation();
     const tokenRepositoryImplementation = new TokenRepositoryImplementation();
-    const tokenRepository = new TokenRepository(tokenRepositoryImplementation, contract=ITokenRepository);
-    const targetPublicRepository = new TargetPublicRepository(targetPublicRepositoryImplementation, contract=ITargetPublicRepository);
+    const tokenRepository = new TokenRepository(tokenRepositoryImplementation, ITokenRepository);
+    const targetPublicRepository = new TargetPublicRepository(targetPublicRepositoryImplementation, ITargetPublicRepository);
     const tokenService = new TokenService(tokenRepository);
     const targetPublicService = new TargetPublicService(targetPublicRepository);
     const targetPublicController = new TargetPublicController(targetPublicService, tokenService);

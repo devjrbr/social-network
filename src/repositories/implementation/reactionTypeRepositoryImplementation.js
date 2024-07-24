@@ -17,14 +17,14 @@ class ReactionTypeRepositoryImplementation extends IReactionTypeRepository {
         }
     };
 
-    async getById(id){
+    getById(reactionTypeId){
         return db('reaction_type')
-            .where({ id })
+            .where({ id: reactionTypeId })
             .select('id', 'description', 'is_active')
             .first();
     };
 
-    async getAll(){
+    getAll(){
         return db('reaction_type')
             .select('id', 'description', 'is_active');
     };

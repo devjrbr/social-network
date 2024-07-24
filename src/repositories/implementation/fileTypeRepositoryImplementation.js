@@ -4,13 +4,13 @@ const ApiError = require("../../utils/ApiError");
 const { IFileTypeRepository } = require("../interfaces/fileTypeRepositoryAbstract");
 
 class FileTypeRepositoryImplementation extends IFileTypeRepository {
-    async create(type) {
+    async create(newFileType) {
         try {
             const [fileType] = await db.transaction(async (trx) => {
                 return db('file_type')
                     .transacting(trx)
                     .insert({
-                        type,
+                        type: newFileType,
                         is_active: true
                     });
             });
@@ -20,23 +20,23 @@ class FileTypeRepositoryImplementation extends IFileTypeRepository {
         }
     };
 
-    async getAll(){
+    getAll(){
         return db('file_type')
             .select('id', 'type', 'is_active');
     };
 
-    async getById(id){
+    getById(fileTypeId){
         return db('file_type')
-            .where({ id })
+            .where({ id: fileTypeId })
             .select('id', 'type', 'is_active')
             .first();
     };
 
-    async delete (id) {
+    async delete (fileTypeId) {
         try {
             await db.transaction(async (trx) => {
                 await db('file_type')
-                    .where({ id })
+                    .where({ id: fileTypeId })
                     .update({ is_active: false })
                     .transacting(trx);
             });

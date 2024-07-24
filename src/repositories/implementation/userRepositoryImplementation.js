@@ -2,14 +2,13 @@ const db = require('../../database/config/db');
 const httpStatus = require("../../utils/statusCodes");
 const { IUserRepository } = require("../interfaces/userRepositoryAbstract");
 const ApiError = require("../../utils/ApiError");
-const knex = require('knex');
 
 class UserRepositoryImplementation extends IUserRepository{
-    async create(full_name, email, hashedPassword) {
+    async create(fullName, email, hashedPassword) {
         try {
         const [userId] = await db('user').insert({
-            full_name,
-            email,
+            full_name: fullName,
+            email: email,
             password: hashedPassword,
             created_at: new Date(),
             updated_at: new Date(),
@@ -20,9 +19,10 @@ class UserRepositoryImplementation extends IUserRepository{
             throw new ApiError(httpStatus.INTERNAL_SERVER_ERROR,'Error while creating user');
         }
     }
-    async getByEmail(email) { 
+
+    getByEmail(email) {
         try {
-            return await db('user')
+            return db('user')
                 .where({ email: email })
                 .first();
         } catch (error) {
@@ -30,34 +30,34 @@ class UserRepositoryImplementation extends IUserRepository{
         }      
     };
     
-    async getById(id){
+    getById(userId){
         try {
-            return await db('user')
+            return db('user')
                 .select('id', 'full_name', 'email', 'password')
-                .where({ id })
+                .where({ id: userId })
                 .first();
         } catch (error) {
             throw new ApiError(httpStatus.NOT_FOUND, 'Error while getting user by id');
         }
     };
     
-    async getAll(){
+    getAll(){
         try {
-            return await db('user')
+            return db('user')
                 .select('id', 'full_name', 'email')
-                // .where({ is_active: true });
+                .where({ is_active: true });
         } catch (error) {
             throw new Error('Error while getting all users');
         }
     };
     
-    async update(id, full_name, email) {
+    update(userId, fullName, email) {
         try {
-            await db('user')
-                .where({ id })
+            db('user')
+                .where({ id: userId })
                 .update({
-                    full_name,
-                    email,                    
+                    full_name: fullName,
+                    email: email,
                     updated_at: new Date()
                 });
         } catch (error) {
@@ -65,19 +65,19 @@ class UserRepositoryImplementation extends IUserRepository{
         }
     };
     
-    async delete (id) {
+    delete (userId) {
         try {
-            await db('user')
-                .where({ id })
+            db('user')
+                .where({ id: userId })
                 .update({ is_active: false });
         } catch (error) {
             throw new ApiError(httpStatus.INTERNAL_SERVER_ERROR,'Error while deleting user');
         }
     };
     
-    async getFeedNews(id) {
+    getFeedNews(userId) {
         try {
-            return await db.raw(`
+            return db.raw(`
                 SELECT
                     post_id,
                     post_description,
@@ -132,16 +132,16 @@ class UserRepositoryImplementation extends IUserRepository{
                         ) AS R ON R.post_id = P.id
                     WHERE U.id = :userId) AS subquery
                 GROUP BY post_id, post_description, created_at, comment_quantity
-                ORDER BY post_id`, { userId: id }
+                ORDER BY post_id`, { userId: userId }
             );
         } catch (error) {
             throw new ApiError(httpStatus.INTERNAL_SERVER_ERROR, 'Error while getting a feed');
         }
     };
     
-    async getPostStatistics() {
+    getPostStatistics() {
         try {
-            return await db.raw(`
+            return db.raw(`
                 SELECT
                     post_id,
                     post_description,
@@ -202,7 +202,6 @@ class UserRepositoryImplementation extends IUserRepository{
             throw new ApiError(httpStatus.INTERNAL_SERVER_ERROR, 'Error while getting a post statistics');
         }
     };
-    
 }
 
 module.exports = UserRepositoryImplementation;

@@ -30,8 +30,8 @@ class AlbumController {
         const { id } = req.params;
         const { authorization: token } = req.headers;
         await this.tokenService.verifyToken(token);
-        const { description, target_id } = req.body;
-        await this.albumService.updateAlbum(id, description, target_id);
+        const { description, target_id: targetId } = req.body;
+        await this.albumService.updateAlbum(id, description, targetId);
         return res.status(httpStatus.OK).json({
             details: "Album updated successfully"
         });

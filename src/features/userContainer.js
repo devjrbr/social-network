@@ -14,10 +14,10 @@ const { ITokenRepository } = require("../repositories/interfaces/tokenRepository
 function configureUserContainer(){
     const tokenRepositoryImplementation = new TokenRepositoryImplementation();
     const userRepositoryImplementation = new UserRepositoryImplementation();
-    const tokenRepository = new TokenRepository(tokenRepositoryImplementation, contract=ITokenRepository);
+    const tokenRepository = new TokenRepository(tokenRepositoryImplementation, ITokenRepository);
     const hashService = new HashService();
     const tokenService = new TokenService(tokenRepository, hashService);
-    const userRepository = new UserRepository(userRepositoryImplementation, contract=IUserRepository);
+    const userRepository = new UserRepository(userRepositoryImplementation, IUserRepository);
     const authenticateService = new AuthenticateService(userRepository, hashService);
     const userService = new UserService(userRepository, hashService);
     const userController = new UserController(userService, authenticateService, tokenService);

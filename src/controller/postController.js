@@ -8,8 +8,8 @@ class PostController {
     async createPost(req, res) {
         const { authorization: token } = req.headers;
         const userId = await this.tokenService.getIdFromToken(token);
-        const { description, target_id, type_id } = req.body;
-        const post = await this.postService.createPost(description, userId, target_id, type_id);
+        const { description, target_id: targetId, type_id: typeId } = req.body;
+        const post = await this.postService.createPost(description, userId, targetId, typeId);
         return res.status(httpStatus.CREATED).json({
             message: 'Post created successfully!',
             data: post

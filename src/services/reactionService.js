@@ -4,27 +4,27 @@ const httpStatus = require("../utils/statusCodes");
 class ReactionService {
     constructor(reactionRepository) {
         this.reactionRepository = reactionRepository;
-    }
-    async createReaction(userId, reaction_type_id, post_id) {
-        return this.reactionRepository.create(userId, reaction_type_id, post_id);
+    };
+    createReaction(userId, reactionTypeId, postId) {
+        return this.reactionRepository.create(userId, reactionTypeId, postId);
     };
     async getReactionById(id) {
         const reaction = await this.reactionRepository.getById(id);
         if (!reaction) throw new ApiError(httpStatus.NOT_FOUND,'Reaction not found');
         return reaction;
     };
-    async getAllReactions(userId) {
+    getAllReactions(userId) {
         return this.reactionRepository.getAll(userId);
     };
-    async updateReaction(id, user_id, reaction_type_id, post_id) {
+    async updateReaction(id, userId, reactionId, postId) {
         const reaction = await this.reactionRepository.getById(id);
         if (!reaction) throw new ApiError(httpStatus.NOT_FOUND,'Reaction not found');
-        return this.reactionRepository.update(id, user_id, reaction_type_id, post_id);
+        return this.reactionRepository.update(id, userId, reactionId, postId);
     };
-    async deleteReaction(id) {
-        const reaction = await this.reactionRepository.getById(id);
+    async deleteReaction(reactionId) {
+        const reaction = await this.reactionRepository.getById(reactionId);
         if (!reaction) throw new ApiError(httpStatus.NOT_FOUND,'Reaction not found');
-        await this.reactionRepository.delete(id);
+        await this.reactionRepository.delete(reactionId);
     };
 }
 

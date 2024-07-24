@@ -5,20 +5,20 @@ class ReactionRepository {
         assertIsInstanceOfContract(repository, contract);
         this.repository = repository;
     }
-    async create(userId, reaction_type_id, post_id) {
-        return this.repository.create(userId, reaction_type_id, post_id);
+    create(userId, reactionTypeId, postId) {
+        return this.repository.create(userId, reactionTypeId, postId);
     };
-    async getById(id){
-        return this.repository.getById(id);
+    getById(reactionId){
+        return this.repository.getById(reactionId);
     };
-    async getAll(userId){
+    getAll(userId){
         return this.repository.getAll(userId);
     };
-    async update(id, user_id, reaction_type_id, post_id) {
-        this.repository.update(id, user_id, reaction_type_id, post_id);
+    update(reactionId, userId, reactionTypeId, postId) {
+        this.repository.update(reactionId, userId, reactionTypeId, postId);
     };
-    async delete (id) {
-        this.repository.delete(id);
+    delete (reactionId) {
+        this.repository.delete(reactionId);
     };
 }
 

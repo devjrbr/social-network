@@ -38,14 +38,14 @@ class CommentRepositoryImplementation extends ICommentRepository{
         }
     }
 
-    async update(id, description, user_id, post_id) {
+    async update(id, description, userId, post_id) {
         try {
             const [comment] = await db('comment')
                 .where({ id })
                 .update({
-                    description,
-                    user_id,
-                    post_id,
+                    description: description,
+                    user_id: userId,
+                    post_id: post_id,
                     updated_at: new Date()
                 })
                 .returning('*');

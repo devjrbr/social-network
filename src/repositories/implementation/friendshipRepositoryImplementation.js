@@ -4,14 +4,14 @@ const ApiError = require("../../utils/ApiError");
 const { IFriendshipRepository } = require("../interfaces/friendshipRepositoryAbstract");
 
 class FriendshipRepositoryImplementation extends IFriendshipRepository {
-    async create(principal_user_id, friend_id) {
+    async create(principalUserId, friendId) {
         try {
             const [friendship] = await db.transaction(async (trx) => {
                 return db('friendship')
                     .transacting(trx)
                     .insert({
-                        principal_user_id,
-                        friend_id,
+                        principal_user_id: principalUserId,
+                        friend_id: friendId,
                         is_active: true
                     });
             });
