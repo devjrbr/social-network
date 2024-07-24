@@ -7,7 +7,6 @@ describe('Testing FriendshipRequest feature', () => {
     let loggedUser;
     let receiverFriendshipRequestUser;
     let loginResponse;
-    let tempUser;
     beforeAll(async () => {
         await db('user').insert({
             id: 10000,

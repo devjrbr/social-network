@@ -9,8 +9,8 @@ const validateSchema = (schema) => async (req, res, next) => {
         await schema.validate({
             authorization,
             id,
-            senderId,
-            receiverId
+            sender_id: senderId,
+            receiver_id: receiverId
         })
         next();
     } catch (error) {

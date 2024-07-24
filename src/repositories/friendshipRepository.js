@@ -5,7 +5,7 @@ class FriendshipRepository {
         assertIsInstanceOfContract(repository, contract);
         this.repository = repository;
     };
-    create({principalUserId, friendId}) {
+    create(principalUserId, friendId) {
         return this.repository.create(principalUserId, friendId);
     };
     getAll(userId){

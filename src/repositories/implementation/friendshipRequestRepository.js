@@ -15,8 +15,7 @@ class FriendshipRequestRepositoryImplementation extends IFriendshipRequestReposi
         } catch (error) {
             throw new ApiError(httpStatus.INTERNAL_SERVER_ERROR, 'Error while creating friendship request');
         }
-    }
-
+    };
     getAll(userId) {
         try {
             return db("friendship_request")
@@ -26,8 +25,7 @@ class FriendshipRequestRepositoryImplementation extends IFriendshipRequestReposi
         } catch (error) {
             throw new ApiError(httpStatus.INTERNAL_SERVER_ERROR, 'Error while getting all friendship requests');
         }
-    }
-
+    };
     accept(requestId) {
         try {
             db("friendship_request")
@@ -39,8 +37,7 @@ class FriendshipRequestRepositoryImplementation extends IFriendshipRequestReposi
         } catch (error) {
             throw new ApiError(httpStatus.INTERNAL_SERVER_ERROR, 'Error while accepting friendship request');
         }
-    }
-
+    };
     delete(requestId) {
         try {
             db("friendship_request")
@@ -49,7 +46,7 @@ class FriendshipRequestRepositoryImplementation extends IFriendshipRequestReposi
         } catch (error) {
             throw new ApiError(httpStatus.INTERNAL_SERVER_ERROR, 'Error while deleting friendship request');
         }
-    }
+    };
 }
 
 module.exports = FriendshipRequestRepositoryImplementation;
